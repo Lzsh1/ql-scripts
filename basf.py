@@ -5,8 +5,8 @@ exam_questions_url = "https://gc-eassistance.basf.com/api/gear-campus-quiz/daily
 answer_url = "https://gc-eassistance.basf.com/api/gear-campus-quiz/daily-exam/answer"
 submit_url = "https://gc-eassistance.basf.com/api/gear-campus-quiz/daily-exam/complete"
 headers = {
-    "Cookie": "SSESS14400d9688fc7430971ac15a078c0e5d=uzoQFu-xpo16gpr4N5m_99FYDuX6BHkyc4Wk8G1vHkU; openId=ozKsrs432_M3zIOyUnKZLUpUCcj0",
-    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.34(0x18002231) NetType/WIFI Language/zh_CN",
+    "Cookie": "",
+    "User-Agent": "",
 }
 
 # 获取每日考试的问题ID和对应答案
