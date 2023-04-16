@@ -1,4 +1,5 @@
 ##巴斯夫最强安全大脑校园版
+##已测试通过
 ##抓包获取gc-eassistance.basf.com下的cookie与ua即可
 import requests
 import json
