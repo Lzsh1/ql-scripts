@@ -85,7 +85,6 @@ class miniso:
                 requests.get(url=link, headers=headers)
                 res = f"获取到阅读文章，正在阅读请稍后......"
                 logger.info(res)
-                log_list.append(res)
                 time.sleep(8)  # 休眠3秒
                 miniso.Read(uk)
             else:
