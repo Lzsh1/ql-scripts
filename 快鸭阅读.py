@@ -56,6 +56,8 @@ class miniso:
             r = requests.post(url, data=payload)
             response_json = r.json()
             url_query_string = response_json['data']['domain']
+            print(url_query_string)
+            requests.get(url=url_query_string)
             params = parse_qs(urlparse(url_query_string).query)
             uk = params.get('uk', [''])[0]
             if uk:
