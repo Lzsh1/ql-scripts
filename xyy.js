@@ -1,3 +1,10 @@
+
+/**
+ * @fileoverview Example to compose HTTP request
+ * and handle the response.
+ *
+ */
+
 ck =$request.headers.Cookie
 var CookieValue = ck.match(/ysmuid=.+?;/)
 url = 'wskey'
