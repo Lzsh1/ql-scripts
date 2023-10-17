@@ -1,3 +1,5 @@
+#悦动群AppStore下载抓ydq.yichengwangluo.net下的Authorization参数
+#推荐单号单ip
 import requests
 import time
 import os
