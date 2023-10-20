@@ -11,7 +11,6 @@ http://mr1690980778055.kdqtcky.cn/user/index.html?mid=C33C8RRLC
 抓包请求体里面: un和token
 变量填在文本末尾
 
-
 '''
 
 
