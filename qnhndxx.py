@@ -1,7 +1,6 @@
 #应该全湖南的只要是青年湖南微信公众号都可用
 #湖南石油化工职业技术学院湖南青年大学习可用
 #填写11行的cookie和30行的ctoken
-#ck一天有效别玩了！！！
 import requests
 import json
 
