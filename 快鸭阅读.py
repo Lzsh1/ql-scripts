@@ -2,7 +2,7 @@
 '''
 cron: 1 6,22 * * *
 @Lzsh1
-new Env('微信阅读');
+new Env('快鸭阅读');
 
 微信打开 https://wi53988.jinzivps.top:10251/yunonline/v1/auth/372ebf1f87d26b5af3162691ad1793fd?codeurl=wi53988.jinzivps.top:10251&codeuserid=2&time=1692179287
 抓取 http://1692180512.yykd202312.cloud任意链接下cookie的参数，只要ysm_uid=后面的参数
