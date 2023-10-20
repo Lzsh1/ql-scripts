@@ -2,6 +2,7 @@
 ##欢迎大家加入“巴斯夫一体化基地(广东)有限公司”
 ##本脚本可完成巴斯夫最强安全大脑校园版的每日答题每天十分，但还是希望大家认真学习安全知识，认真贯彻巴斯夫理念
 ##抓包获取gc-eassistance.basf.com下的cookie与ua即可
+
 import requests
 import json
 
