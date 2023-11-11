@@ -69,7 +69,6 @@ class BASF:
 
 
     def submit(self):
-        questions = []
         print("question_answers:", self.question_answers)
         payload = {
             "userAnswers": [
@@ -127,7 +126,7 @@ class BASF:
 
     def run(self):
         self.answer()
-        if self.question_answers is not None:
+        if len(self.question_answers) > 0:
             self.submit()
 
 
@@ -141,3 +140,4 @@ if __name__ == "__main__":
             time.sleep(1)
     except InvalidURLException as e:
         print(str(e))
+
