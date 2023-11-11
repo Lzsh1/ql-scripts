@@ -10,11 +10,14 @@ import os
 
 cookies = os.getenv('basf')
 
+
 class InvalidURLException(Exception):
     pass
 
+
 class BASF:
     def __init__(self, cookie1):
+        self.question_answers = []
         self.headers = {
             "Host": "gc-eassistance.basf.com",
             "X-CSRF-TOKEN": "OXlO-Mp2yPom5ONAA-1atWVVKA1a_VpjnA6DRIZSF6w",
@@ -32,14 +35,16 @@ class BASF:
         self.answer_url = "https://gc-eassistance.basf.com/api/gear-campus-quiz/learning/answer"
         self.submit_url = "https://gc-eassistance.basf.com/api/gear-campus-quiz/daily-exam/complete"
 
-    def answer(self, question_answers=None):
-        r = requests.post(self.exam_questions_url, headers=self.headers)
-        if r.status_code == 200:
-            data = json.loads(r.text)
-            print(data)
+    def answer(self, questions=None):
+        self.question_answers = []
+        response = requests.post(self.exam_questions_url, headers=self.headers)
+        if response.status_code == 200:
+            data = json.loads(response.text)
             try:
                 questions = data['data']['questions']
-                examId = data['data']['examId']
+                self.examId = data['data']['examId']
+
+                # 遍历每个问题，发送 POST 请求提交问题答案，并将问题 ID 和正确答案保存到 question_answers 数组中，以备后续使用
                 for question in questions:
                     question_id = question['id']
                     payload = {
@@ -51,71 +56,10 @@ class BASF:
                         answer_data = json.loads(response.text)
                         if 'data' in answer_data and 'answer' in answer_data.get('data', {}):
                             user_answer = answer_data['data']['answer']
-                            question_answers.append({
+                            self.question_answers.append({
                                 "id": question_id,
                                 "userAnswer": user_answer
                             })
-                            if len(questions) != len(question_answers):
-                                print("Error: 问题数和答案数不匹配。")
-                                exit()
-
-                            # 构建新的请求主体，包含用户回答的所有问题和对应的答案
-                            if len(question_answers) == len(questions):
-                                payload = {
-                                    "userAnswers": [
-                                        {
-                                            "id": question_answers[0]['id'],
-                                            "userAnswer": question_answers[0]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[1]['id'],
-                                            "userAnswer": question_answers[1]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[2]['id'],
-                                            "userAnswer": question_answers[2]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[3]['id'],
-                                            "userAnswer": question_answers[3]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[4]['id'],
-                                            "userAnswer": question_answers[4]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[5]['id'],
-                                            "userAnswer": question_answers[5]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[6]['id'],
-                                            "userAnswer": question_answers[6]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[7]['id'],
-                                            "userAnswer": question_answers[7]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[8]['id'],
-                                            "userAnswer": question_answers[8]['userAnswer']
-                                        },
-                                        {
-                                            "id": question_answers[9]['id'],
-                                            "userAnswer": question_answers[9]['userAnswer']
-                                        }
-                                    ],
-                                    "examId": examId
-                                }
-
-                                # 发送 POST 请求提交考试答案
-                                response = requests.post(self.submit_url, headers=self.headers, json=payload)
-                                if response.status_code == 200:
-                                    print(response.text)
-                                    print(f'账号{index}每日答题提交成功')
-                                else:
-                                    print("每日考试提交失败。")
-                            else:
-                                print("无法构建提交请求：问题答案数与问题数不匹配。")
                         else:
                             print("Error: JSON 字段错误")
                     else:
@@ -123,8 +67,69 @@ class BASF:
             except KeyError:
                 print("今日答题已完成")
 
+
+    def submit(self):
+        questions = []
+        print("question_answers:", self.question_answers)
+        payload = {
+            "userAnswers": [
+                {
+                    "id": self.question_answers[0]['id'],
+                    "userAnswer": self.question_answers[0]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[1]['id'],
+                    "userAnswer": self.question_answers[1]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[2]['id'],
+                    "userAnswer": self.question_answers[2]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[3]['id'],
+                    "userAnswer": self.question_answers[3]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[4]['id'],
+                    "userAnswer": self.question_answers[4]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[5]['id'],
+                    "userAnswer": self.question_answers[5]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[6]['id'],
+                    "userAnswer": self.question_answers[6]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[7]['id'],
+                    "userAnswer": self.question_answers[7]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[8]['id'],
+                    "userAnswer": self.question_answers[8]['userAnswer']
+                },
+                {
+                    "id": self.question_answers[9]['id'],
+                    "userAnswer": self.question_answers[9]['userAnswer']
+                }
+            ],
+            "examId": self.examId
+        }
+
+        # 发送 POST 请求提交考试答案
+        response = requests.post(self.submit_url, headers=self.headers, json=payload)
+        if response.status_code == 200:
+            print(response.text)
+            print(f'账号{index}每日答题提交成功')
+        else:
+            print("每日考试提交失败。")
+
     def run(self):
         self.answer()
+        if self.question_answers is not None:
+            self.submit()
+
 
 if __name__ == "__main__":
     user_cookie = cookies.split('@')
